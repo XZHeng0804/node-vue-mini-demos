@@ -1,0 +1,21 @@
+{
+  "name": "mini-koa",
+  "version": "1.0.0",
+  "description": "mini koa",
+  "main": "index.js",
+  "scripts": {
+    "start": "node compose.js"
+  },
+  "keywords": [
+    "koa"
+  ],
+  "author": "xiao",
+  "license": "MIT",
+  "dependencies": {
+    "ioredis": "^6.0.0",
+    "koa": "^3.2.1",
+    "koa-bodyparser": "^4.4.1",
+    "koa-router": "^14.0.0",
+    "koa-static": "^5.0.0"
+  }
+}
