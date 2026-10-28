@@ -46,23 +46,75 @@ class miniKoa{
         }
     }
 }
+//路由
+function Router(){
+    const router =[];
+  return {
+
+    get(path,handler){
+      router.push({method:'GET',path,handler});
+    },
+    // 路由中间件
+    middleware(){
+      return async(ctx,next)=>{
+        const{method,url} = ctx.req;
+        for(const r of router){
+          if(r.method === method && url === r.path){
+            await r.handler(ctx,next);
+            return;
+          }
+        }
+      };
+    }
+  }
+}
+
+
 // 测试
 const app = new miniKoa();
+const router = new Router();
 
-app.use(async (ctx,nest)=>{
-    try{
-        await nest();
-    }catch(err){
-        console.log("捕获业务异常：", err.message);
-        ctx.res.statusCode = 400;
-        ctx.res.end(JSON.stringify({ code: -1, msg: err.message }));
-        return;
-    }
-})
-
-app.use(async (ctx, next) => {
-  throw new Error("接口参数错误");
+router.get('/',async(ctx,next)=>{
+    ctx.res.end("hello mini koa");
 });
+
+router.get('/list',async(ctx,next)=>{
+    ctx.res.end("list");
+});
+// 路由中间件
+app.use(router.middleware());
+
+
+
+//// 日志中间件
+// app.use(async (ctx, next) => {
+//   const start = Date.now();
+
+//   await next();
+//   const cost = Date.now() - start;
+//   console.log(ctx.res.statusCode);
+//   console.log(`path:${ctx.req.url}, cost:${cost}ms`);
+// });
+
+// app.use(async (ctx, next) => {
+//   ctx.res.end("ok");
+// });
+
+// 捕获业务异常
+// app.use(async (ctx,nest)=>{
+//     try{
+//         await nest();
+//     }catch(err){
+//         console.log("捕获业务异常：", err.message);
+//         ctx.res.statusCode = 400;
+//         ctx.res.end(JSON.stringify({ code: -1, msg: err.message }));
+//         return;
+//     }
+// })
+
+// app.use(async (ctx, next) => {
+//   throw new Error("接口参数错误");
+// });
 //demo2
 // app.use(async (ctx, next) => {
 //     console.log("sm1 before next");

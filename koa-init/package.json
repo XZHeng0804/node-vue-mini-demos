@@ -1,0 +1,21 @@
+{
+  "name": "koa-init",
+  "version": "1.0.0",
+  "private": true,
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "node --watch src/app.js"
+  },
+  "dependencies": {
+    "@koa/multer": "^4.0.0",
+    "@koa/router": "^15.7.0",
+    "dotenv": "^18.0.9",
+    "ioredis": "^6.0.0",
+    "jsonwebtoken": "^9.0.3",
+    "koa": "^3.2.1",
+    "mime-types": "^3.0.2",
+    "multer": "^2.5.0",
+    "mysql2": "^3.24.6"
+  }
+}
